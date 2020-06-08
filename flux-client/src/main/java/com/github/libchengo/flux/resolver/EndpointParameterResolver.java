@@ -1,14 +1,14 @@
 package com.github.libchengo.flux.resolver;
 
-import com.github.libchengo.flux.core.FxParameter;
-import com.github.libchengo.flux.core.FxParameterResolver;
+import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterResolver;
 
 import java.lang.reflect.Type;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class EndpointParameterResolver implements FxParameterResolver {
+public class EndpointParameterResolver implements ParameterResolver {
 
     private final EndpointHelper endpoint;
 
@@ -17,7 +17,7 @@ public class EndpointParameterResolver implements FxParameterResolver {
     }
 
     @Override
-    public FxParameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
+    public Parameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
         if (!endpoint.isEndpointType(parameter.getType())) {
             return null;
         }

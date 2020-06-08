@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 表示从Http的Query和POST表单参数中读取参数值。
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

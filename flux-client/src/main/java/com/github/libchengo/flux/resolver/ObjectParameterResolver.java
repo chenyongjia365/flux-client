@@ -1,8 +1,8 @@
 package com.github.libchengo.flux.resolver;
 
-import com.github.libchengo.flux.core.FxParameter;
-import com.github.libchengo.flux.core.FxParameterResolver;
-import com.github.libchengo.flux.core.FxParameterType;
+import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterResolver;
+import com.github.libchengo.flux.core.ParameterType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class ObjectParameterResolver implements FxParameterResolver {
+public class ObjectParameterResolver implements ParameterResolver {
 
     private final EndpointHelper endpoint;
 
@@ -22,18 +22,18 @@ public class ObjectParameterResolver implements FxParameterResolver {
     }
 
     @Override
-    public FxParameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
+    public Parameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
         final Class<?> parameterType = parameter.getType();
         if (!isPojoType(parameterType)) {
             return null;
         }
         // POJO类型：不处理泛型
         final String className = parameter.getType().getTypeName();
-        return FxParameter.builder()
+        return Parameter.builder()
                 .className(className)
                 .genericTypes(Collections.emptyList())
                 .fieldName(parameter.getName())
-                .type(FxParameterType.POJO_OBJECT)
+                .type(ParameterType.POJO_OBJECT)
                 .fields(Stream.of(parameterType.getDeclaredFields())
                         .map(this::makeValueFieldFromPojoField)
                         .collect(Collectors.toList()))
@@ -41,7 +41,7 @@ public class ObjectParameterResolver implements FxParameterResolver {
     }
 
 
-    private FxParameter makeValueFieldFromPojoField(Field field) {
+    private Parameter makeValueFieldFromPojoField(Field field) {
         final Class<?> fieldType = field.getType();
         if (!endpoint.isEndpointType(fieldType)) {
             throw new IllegalArgumentException("POJO的成员属性字段，必须是有效的数值端点属性");

@@ -1,2 +1,2 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.libchengo.flux.FxConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.libchengo.flux.Configuration

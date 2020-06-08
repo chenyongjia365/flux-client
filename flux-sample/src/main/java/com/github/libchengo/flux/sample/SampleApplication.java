@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 主程序入口
  *
- * @author 陈哈哈 yongjia-chen@outlook.com
+ * @author 陈哈哈 chenyongjia365@outlook.com
  */
 @SpringBootApplication
 public class SampleApplication {

@@ -4,11 +4,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 @Component
-@ConfigurationProperties(prefix = "fluxway.metadata-registry")
-public class FxMetadataConfig {
+@ConfigurationProperties(prefix = "flux.endpoint-registry")
+public class EndpointConfig {
 
     /**
      * 统一API前缀

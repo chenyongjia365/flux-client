@@ -3,7 +3,7 @@ package com.github.libchengo.flux.annotation;
 /**
  * Http method
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 public enum FxMethod {
     /**

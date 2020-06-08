@@ -7,16 +7,14 @@ dubbo:
   application:
     name: "${spring.application.name}"
   registry:
-    address: nacos://nacos:8848
-  metadata-report:
-    address: nacos://nacos:8848
+    address: zookeeper://tx.devserver.net:2181
   scan:
     base-packages: "com.github.libchengo.flux.sample.service"
 
 # Nacos 作为Fluxway网关Http与后端Dubbo请求映射的元数据中心
-fluxway:
+flux:
   metadata-registry:
-    address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://zookeeper:2181}
+    address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://tx.devserver.net:2181}
     base-package: "com.github.libchengo.flux.sample.service"
     prefix: "/sample"
 

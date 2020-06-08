@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public interface FxBodyMapBuilder {
+public interface BodyMapBuilder {
 
     /**
      * 设置StatusCode
@@ -15,7 +15,7 @@ public interface FxBodyMapBuilder {
      * @param statusCode StatusCode
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder statusCode(int statusCode);
+    BodyMapBuilder statusCode(int statusCode);
 
     /**
      * 设置Message字段
@@ -23,7 +23,7 @@ public interface FxBodyMapBuilder {
      * @param message Message
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder message(String message);
+    BodyMapBuilder message(String message);
 
     /**
      * 设置Status字段
@@ -31,7 +31,7 @@ public interface FxBodyMapBuilder {
      * @param status Status
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder status(String status);
+    BodyMapBuilder status(String status);
 
     /**
      * 设置Body的值，以data字段作为包装字段
@@ -39,7 +39,7 @@ public interface FxBodyMapBuilder {
      * @param body Body值对象
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder body(Serializable body);
+    BodyMapBuilder body(Serializable body);
 
     /**
      * 设置Headers
@@ -47,7 +47,7 @@ public interface FxBodyMapBuilder {
      * @param headers Headers
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder headers(Map<String, String> headers);
+    BodyMapBuilder headers(Map<String, String> headers);
 
     /**
      * 设置Header Name-Value
@@ -56,28 +56,28 @@ public interface FxBodyMapBuilder {
      * @param value Header Value
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder header(String name, String value);
+    BodyMapBuilder header(String name, String value);
 
     /**
      * 创建Success状态。默认为200状态码
      *
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder asSuccess();
+    BodyMapBuilder asSuccess();
 
     /**
      * 设置为Failed状态。默认为400状态码
      *
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder asFailed();
+    BodyMapBuilder asFailed();
 
     /**
      * 设置为Error状态。默认为500状态码
      *
      * @return FxHttpResponse
      */
-    FxBodyMapBuilder asError();
+    BodyMapBuilder asError();
 
     /**
      * 根据条件设置Success或Failed状态。状态码默认为200和400
@@ -85,7 +85,7 @@ public interface FxBodyMapBuilder {
      * @param success 是否为Success状态
      * @return FxBodyMapResponse
      */
-    FxBodyMapBuilder statusOf(boolean success);
+    BodyMapBuilder statusOf(boolean success);
 
     /**
      * 返回构建FxResponse对象
@@ -96,7 +96,7 @@ public interface FxBodyMapBuilder {
 
     ////
 
-    class SimpleBodyMapBuilder implements FxBodyMapBuilder {
+    class SimpleBodyMapBuilder implements BodyMapBuilder {
 
         private final FxResponse response = FxResponse.simple();
         private final HashMap<String, Serializable> bodyMap = new HashMap<>(4);
@@ -105,58 +105,58 @@ public interface FxBodyMapBuilder {
         }
 
         @Override
-        public FxBodyMapBuilder statusCode(int statusCode) {
+        public BodyMapBuilder statusCode(int statusCode) {
             response.statusCode(statusCode);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder message(String message) {
+        public BodyMapBuilder message(String message) {
             bodyMap.put("message", message);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder status(String status) {
+        public BodyMapBuilder status(String status) {
             bodyMap.put("status", status);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder body(Serializable body) {
+        public BodyMapBuilder body(Serializable body) {
             bodyMap.put("data", body);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder headers(Map<String, String> headers) {
+        public BodyMapBuilder headers(Map<String, String> headers) {
             response.headers(headers);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder header(String name, String value) {
+        public BodyMapBuilder header(String name, String value) {
             response.header(name, value);
             return this;
         }
 
         @Override
-        public FxBodyMapBuilder asSuccess() {
+        public BodyMapBuilder asSuccess() {
             return statusCode(200).status("success").message("SUCCESS");
         }
 
         @Override
-        public FxBodyMapBuilder asFailed() {
+        public BodyMapBuilder asFailed() {
             return statusCode(400).status("failed").message("FAILED");
         }
 
         @Override
-        public FxBodyMapBuilder asError() {
+        public BodyMapBuilder asError() {
             return statusCode(500).status("error").message("ERROR");
         }
 
         @Override
-        public FxBodyMapBuilder statusOf(boolean success) {
+        public BodyMapBuilder statusOf(boolean success) {
             if (success) {
                 this.asSuccess();
             } else {

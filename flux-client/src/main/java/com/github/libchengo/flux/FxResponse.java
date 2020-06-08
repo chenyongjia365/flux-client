@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Response结构
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 public class FxResponse extends HashMap<String, Serializable> {
 
@@ -157,8 +157,8 @@ public class FxResponse extends HashMap<String, Serializable> {
      *
      * @return FxBodyMapResponse
      */
-    public static FxBodyMapBuilder bodyMap() {
-        return new FxBodyMapBuilder.SimpleBodyMapBuilder();
+    public static BodyMapBuilder bodyMap() {
+        return new BodyMapBuilder.SimpleBodyMapBuilder();
     }
 
 }

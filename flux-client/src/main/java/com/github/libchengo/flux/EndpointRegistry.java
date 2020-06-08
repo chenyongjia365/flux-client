@@ -5,7 +5,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
-import com.github.libchengo.flux.core.FxDefinition;
+import com.github.libchengo.flux.core.Definition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,23 +14,23 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxMetadataRegistry {
+public class EndpointRegistry {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FxMetadataRegistry.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EndpointRegistry.class);
 
-    private static final String METADATA_DYNAMIC = "{+}";
     private static final String METADATA_NAMESPACE = "/flux-metadata";
 
     private CuratorFramework zkClient;
 
+    private static final String METADATA_DYNAMIC = "+";
     private static final String REQUEST_DYNAMIC_L = "{";
     private static final String REQUEST_DYNAMIC_R = "}";
 
-    private final FxDecoder decoder;
+    private final Decoder decoder;
 
-    public FxMetadataRegistry(String registryUrl, FxDecoder decoder) {
+    public EndpointRegistry(String registryUrl, Decoder decoder) {
         this.decoder = decoder;
         zkClient = CuratorFrameworkFactory.builder()
                 .connectString(resolveAddress(registryUrl))
@@ -45,7 +45,7 @@ public class FxMetadataRegistry {
      *
      * @param definition FxDefinition
      */
-    public void commit(FxDefinition definition) throws Exception {
+    public void commit(Definition definition) throws Exception {
         // 注册ZK路径，如：/fluxway-metadata/get.api.users.profile
         final String zkPath = makeZkRegisterMetadataPath(definition);
         final byte[] metadata = decoder.decode(definition).getBytes(StandardCharsets.UTF_8);
@@ -82,7 +82,7 @@ public class FxMetadataRegistry {
         LOGGER.info("Cleanup...OK");
     }
 
-    private String makeZkRegisterMetadataPath(FxDefinition definition) {
+    private String makeZkRegisterMetadataPath(Definition definition) {
         final StringBuilder sb = new StringBuilder(METADATA_NAMESPACE)
                 .append('/')
                 .append(definition.getHttpMethod().toUpperCase());

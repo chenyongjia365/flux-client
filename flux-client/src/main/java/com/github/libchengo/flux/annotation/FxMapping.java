@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 用于设置网关API映射
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

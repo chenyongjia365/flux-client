@@ -1,10 +1,10 @@
 package com.github.libchengo.flux;
 
 import com.github.libchengo.flux.annotation.FxMapping;
-import com.github.libchengo.flux.core.FxDefinition;
-import com.github.libchengo.flux.core.FxParameter;
-import com.github.libchengo.flux.core.FxParameterResolver;
-import com.github.libchengo.flux.core.FxProtocol;
+import com.github.libchengo.flux.core.Definition;
+import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterResolver;
+import com.github.libchengo.flux.core.Protocol;
 import com.github.libchengo.flux.resolver.EndpointHelper;
 import com.github.libchengo.flux.resolver.EndpointParameterResolver;
 import com.github.libchengo.flux.resolver.ObjectParameterResolver;
@@ -16,21 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxResolver {
+public class Resolver {
 
-    private final List<FxParameterResolver> resolvers = new ArrayList<>();
+    private final List<ParameterResolver> resolvers = new ArrayList<>();
 
-    public FxResolver() {
+    public Resolver() {
         final EndpointHelper helper = new EndpointHelper();
         resolvers.add(new EndpointParameterResolver(helper));
         resolvers.add(new ObjectParameterResolver(helper));
     }
 
-    public FxDefinition resolve(String prefix, String appName,
-                                String serviceGroup, String serviceVer, String interfaceName, FxMapping mapping, Method method) {
-        final FxDefinition.Builder builder = FxDefinition.builder()
+    public Definition resolve(String prefix, String appName,
+                              String serviceGroup, String serviceVer, String interfaceName, FxMapping mapping, Method method) {
+        final Definition.Builder builder = Definition.builder()
                 .application(appName == null ? "" : appName)
                 .rpcGroup(serviceGroup == null ? "" : serviceGroup)
                 .rpcVersion(serviceVer == null ? "" : serviceVer);
@@ -43,7 +43,7 @@ public class FxResolver {
         if (!version.isEmpty()) {
             builder.rpcVersion(version);
         }
-        builder.protocol(FxProtocol.DUBBO);
+        builder.protocol(Protocol.DUBBO);
         builder.authorized(mapping.authorized());
         // 网关侧请求定义
         builder.httpUri(Paths.get(prefix, path).toString());
@@ -53,13 +53,13 @@ public class FxResolver {
         builder.serviceMethod(method.getName());
         // 解析方法参数类型
         final int count = method.getParameterCount();
-        final List<FxParameter> parameters = new ArrayList<>(count);
+        final List<Parameter> parameters = new ArrayList<>(count);
         if (count > 0) {
             final java.lang.reflect.Parameter[] mps = method.getParameters();
             final Type[] gts = method.getGenericParameterTypes();
             for (int i = 0; i < count; i++) {
-                FxParameter field = null;
-                for (FxParameterResolver resolver : resolvers) {
+                Parameter field = null;
+                for (ParameterResolver resolver : resolvers) {
                     field = resolver.resolve(mps[i], gts[i]);
                     if (field != null) {
                         break;

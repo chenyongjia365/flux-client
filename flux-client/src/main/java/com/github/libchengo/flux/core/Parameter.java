@@ -7,9 +7,9 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxParameter implements Serializable {
+public class Parameter implements Serializable {
 
     private transient AnnotatedElement element;
 
@@ -35,13 +35,13 @@ public class FxParameter implements Serializable {
      * 参数字段类型
      */
     @SerializedName("parameterType")
-    private FxParameterType parameterType;
+    private ParameterType parameterType;
 
     /**
      * 当type类型为POJO时，fields记录所有POJO成员字段的列表及其类型
      */
     @SerializedName("fields")
-    private List<FxParameter> fields;
+    private List<Parameter> fields;
 
     /**
      * 映射Http的参数名。表示值Value从网关Http请求的哪个数据字段中获取。
@@ -53,7 +53,7 @@ public class FxParameter implements Serializable {
      * 指定从网关Http请求的数据源，Value值将从指定的数据源中读取。
      */
     @SerializedName("httpScope")
-    private FxHttpScope httpScope;
+    private HttpScope httpScope;
 
     //
 
@@ -73,7 +73,7 @@ public class FxParameter implements Serializable {
         return parameterName;
     }
 
-    public FxParameterType getParameterType() {
+    public ParameterType getParameterType() {
         return parameterType;
     }
 
@@ -81,15 +81,15 @@ public class FxParameter implements Serializable {
         return httpName;
     }
 
-    public FxHttpScope getHttpScope() {
+    public HttpScope getHttpScope() {
         return httpScope;
     }
 
-    public List<FxParameter> getFields() {
+    public List<Parameter> getFields() {
         return fields;
     }
 
-    public FxParameter(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, FxParameterType parameterType, String httpName, FxHttpScope httpScope, List<FxParameter> fields) {
+    public Parameter(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, ParameterType parameterType, String httpName, HttpScope httpScope, List<Parameter> fields) {
         this.element = element;
         this.className = className;
         this.genericTypes = genericTypes;
@@ -109,10 +109,10 @@ public class FxParameter implements Serializable {
         private String className;
         private List<String> genericTypes;
         private String fieldName;
-        private FxParameterType type;
+        private ParameterType type;
         private String httpName;
-        private FxHttpScope httpScope;
-        private List<FxParameter> fields;
+        private HttpScope httpScope;
+        private List<Parameter> fields;
 
         private Builder() {
         }
@@ -137,7 +137,7 @@ public class FxParameter implements Serializable {
             return this;
         }
 
-        public Builder type(FxParameterType type) {
+        public Builder type(ParameterType type) {
             this.type = type;
             return this;
         }
@@ -147,18 +147,18 @@ public class FxParameter implements Serializable {
             return this;
         }
 
-        public Builder httpScope(FxHttpScope httpScope) {
+        public Builder httpScope(HttpScope httpScope) {
             this.httpScope = httpScope;
             return this;
         }
 
-        public Builder fields(List<FxParameter> fields) {
+        public Builder fields(List<Parameter> fields) {
             this.fields = fields;
             return this;
         }
 
-        public FxParameter build() {
-            return new FxParameter(element, className, genericTypes, fieldName, type, httpName, httpScope, fields);
+        public Parameter build() {
+            return new Parameter(element, className, genericTypes, fieldName, type, httpName, httpScope, fields);
         }
     }
 

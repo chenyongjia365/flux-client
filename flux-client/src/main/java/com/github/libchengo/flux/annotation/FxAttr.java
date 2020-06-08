@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 表示读取网关Http请求的Attr单个字段内容。
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

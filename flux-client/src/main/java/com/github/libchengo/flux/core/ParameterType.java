@@ -3,9 +3,9 @@ package com.github.libchengo.flux.core;
 /**
  * 参数类型
  *
- * @author 陈哈哈 yongjia-chen@outlook.com
+ * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public enum FxParameterType {
+public enum ParameterType {
 
     /**
      * 基础字段类型。表示当前参数是Java基础类型，没有内部成员字段。

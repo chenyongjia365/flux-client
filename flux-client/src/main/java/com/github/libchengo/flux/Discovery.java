@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 /**
  * 网关注册扫描类
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxDiscovery implements ApplicationListener<ApplicationReadyEvent> {
+public class Discovery implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FxDiscovery.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Discovery.class);
 
     private static final String META_GROUP = "group";
     private static final String META_VERSION = "version";
@@ -34,11 +34,11 @@ public class FxDiscovery implements ApplicationListener<ApplicationReadyEvent> {
     private static final String META_IFACE_CLASS = "interfaceClass";
     private static final String META_FX_METHODS = "fxMethods";
 
-    private final FxMetadataConfig metadataConfig;
+    private final EndpointConfig metadataConfig;
 
-    private final FxResolver definitionResolver = new FxResolver();
+    private final Resolver definitionResolver = new Resolver();
 
-    public FxDiscovery(FxMetadataConfig metadataConfig) {
+    public Discovery(EndpointConfig metadataConfig) {
         this.metadataConfig = metadataConfig;
     }
 
@@ -56,7 +56,7 @@ public class FxDiscovery implements ApplicationListener<ApplicationReadyEvent> {
         final List<BeanMetadata> beans = scanBeans(context);
         LOGGER.info("Fluxway[{}] scan beans: {}", appName, beans.size());
         // 注册到元数据中心
-        final FxMetadataRegistry registry = new FxMetadataRegistry(metadataConfig.getAddress(), new FxDecoder());
+        final EndpointRegistry registry = new EndpointRegistry(metadataConfig.getAddress(), new Decoder());
         registry.startup();
         final String prefix = metadataConfig.getPrefix() == null ? "/" : metadataConfig.getPrefix();
         LOGGER.info("Fluxway client prefix: {}", prefix);

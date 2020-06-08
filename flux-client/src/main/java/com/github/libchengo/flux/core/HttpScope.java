@@ -3,9 +3,9 @@ package com.github.libchengo.flux.core;
 /**
  * HTTP数据源范围
  *
- * @author 陈哈哈 yongjia-chen@outlook.com
+ * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public enum FxHttpScope {
+public enum HttpScope {
     /**
      * 自动查找数据源
      */

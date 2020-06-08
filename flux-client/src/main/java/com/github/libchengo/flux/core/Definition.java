@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * FxDefinition 用于包装网关Http请求与后端Dubbo/Http服务请求的传输对象。
  *
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxDefinition implements Serializable {
+public class Definition implements Serializable {
 
     @SerializedName("ver")
     private final String ver = "v1";
@@ -22,7 +22,7 @@ public class FxDefinition implements Serializable {
      * 映射的协议名称
      */
     @SerializedName("protocol")
-    private FxProtocol protocol;
+    private Protocol protocol;
 
     /**
      * Dubbo.group
@@ -70,11 +70,11 @@ public class FxDefinition implements Serializable {
      * 参数列表
      */
     @SerializedName("parameters")
-    private List<FxParameter> parameters;
+    private List<Parameter> parameters;
 
-    public FxDefinition(String application, FxProtocol protocol, String rpcGroup, String rpcVersion, boolean authorized,
-                        String serviceUri, String serviceMethod, String httpUri, String httpMethod,
-                        List<FxParameter> parameters) {
+    public Definition(String application, Protocol protocol, String rpcGroup, String rpcVersion, boolean authorized,
+                      String serviceUri, String serviceMethod, String httpUri, String httpMethod,
+                      List<Parameter> parameters) {
         this.application = application;
         this.protocol = protocol;
         this.rpcGroup = rpcGroup;
@@ -95,7 +95,7 @@ public class FxDefinition implements Serializable {
         return ver;
     }
 
-    public FxProtocol getProtocol() {
+    public Protocol getProtocol() {
         return protocol;
     }
 
@@ -127,7 +127,7 @@ public class FxDefinition implements Serializable {
         return httpMethod;
     }
 
-    public List<FxParameter> getParameters() {
+    public List<Parameter> getParameters() {
         return parameters;
     }
 
@@ -139,7 +139,7 @@ public class FxDefinition implements Serializable {
 
     public static final class Builder {
         private String application;
-        private FxProtocol protocol;
+        private Protocol protocol;
         private String rpcGroup;
         private String rpcVersion;
         private boolean authorized;
@@ -147,7 +147,7 @@ public class FxDefinition implements Serializable {
         private String serviceMethod;
         private String httpUri;
         private String httpMethod;
-        private List<FxParameter> parameters;
+        private List<Parameter> parameters;
 
         private Builder() {
         }
@@ -157,7 +157,7 @@ public class FxDefinition implements Serializable {
             return this;
         }
 
-        public Builder protocol(FxProtocol protocol) {
+        public Builder protocol(Protocol protocol) {
             this.protocol = protocol;
             return this;
         }
@@ -197,13 +197,13 @@ public class FxDefinition implements Serializable {
             return this;
         }
 
-        public Builder parameters(List<FxParameter> parameters) {
+        public Builder parameters(List<Parameter> parameters) {
             this.parameters = parameters;
             return this;
         }
 
-        public FxDefinition build() {
-            return new FxDefinition(application, protocol, rpcGroup, rpcVersion, authorized, serviceUri, serviceMethod, httpUri, httpMethod, parameters);
+        public Definition build() {
+            return new Definition(application, protocol, rpcGroup, rpcVersion, authorized, serviceUri, serviceMethod, httpUri, httpMethod, parameters);
         }
     }
 }

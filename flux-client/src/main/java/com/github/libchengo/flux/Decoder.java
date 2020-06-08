@@ -1,7 +1,7 @@
 package com.github.libchengo.flux;
 
 import com.google.gson.*;
-import com.github.libchengo.flux.core.FxDefinition;
+import com.github.libchengo.flux.core.Definition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,11 +10,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * @author 陈哈哈 (yongjia-chen@outlook.com)
+ * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class FxDecoder {
+public class Decoder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FxDecoder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Decoder.class);
 
     private final Gson gson = new GsonBuilder()
             .disableHtmlEscaping()
@@ -28,7 +28,7 @@ public class FxDecoder {
      * @param mapper RequestMapper
      * @return JSON 字符串
      */
-    public String decode(FxDefinition mapper) {
+    public String decode(Definition mapper) {
         return gson.toJson(mapper);
     }
 

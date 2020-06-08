@@ -3,9 +3,9 @@ package com.github.libchengo.flux.core;
 /**
  * 支持的协议列表
  *
- * @author 陈哈哈 yongjia-chen@outlook.com
+ * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public enum FxProtocol {
+public enum Protocol {
 
     /**
      * DUBBO协议

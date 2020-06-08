@@ -11,9 +11,9 @@ import java.util.Map;
  */
 public class FxResponse extends HashMap<String, Serializable> {
 
-    public static final String NAME_FLUX_HTTP_STATUS = "@com.github.libchengo.flux.http.status";
-    public static final String NAME_FLUX_HTTP_HEADERS = "@com.github.libchengo.flux.http.headers";
-    public static final String NAME_FLUX_HTTP_BODY = "@com.github.libchengo.flux.http.body";
+    public static final String NAME_FLUX_HTTP_STATUS = "@libchengo.flux.http.status";
+    public static final String NAME_FLUX_HTTP_HEADERS = "@libchengo.flux.http.headers";
+    public static final String NAME_FLUX_HTTP_BODY = "@libchengo.flux.http.body";
 
     private final HashMap<String, String> headers = new HashMap<>();
 

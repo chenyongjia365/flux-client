@@ -11,7 +11,7 @@ dubbo:
   scan:
     base-packages: "com.github.libchengo.flux.sample.service"
 
-# Nacos 作为Fluxway网关Http与后端Dubbo请求映射的元数据中心
+# Nacos 作为Flux网关Http与后端Dubbo请求映射的元数据中心
 flux:
   metadata-registry:
     address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://tx.devserver.net:2181}

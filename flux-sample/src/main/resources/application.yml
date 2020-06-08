@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: "flux-sample"
+
+# Apache Dubbo配置
+dubbo:
+  application:
+    name: "${spring.application.name}"
+  registry:
+    address: nacos://nacos:8848
+  metadata-report:
+    address: nacos://nacos:8848
+  scan:
+    base-packages: "com.github.libchengo.flux.sample.service"
+
+# Nacos 作为Fluxway网关Http与后端Dubbo请求映射的元数据中心
+fluxway:
+  metadata-registry:
+    address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://zookeeper:2181}
+    base-package: "com.github.libchengo.flux.sample.service"
+    prefix: "/sample"
+
+# 日志配置
+logging:
+  level:
+    root: info
+    "org.nextabc.fluxway": debug
+    "com.alibaba.nacos.config": debug
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+

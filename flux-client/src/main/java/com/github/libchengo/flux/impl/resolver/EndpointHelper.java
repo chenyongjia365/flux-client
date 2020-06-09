@@ -1,8 +1,7 @@
-package com.github.libchengo.flux.resolver;
+package com.github.libchengo.flux.impl.resolver;
 
 import com.github.libchengo.flux.annotation.*;
-import com.github.libchengo.flux.core.HttpScope;
-import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterMetadata;
 import com.github.libchengo.flux.core.ParameterType;
 import org.apache.dubbo.common.utils.ReflectUtils;
 
@@ -20,41 +19,41 @@ public class EndpointHelper {
     public EndpointHelper() {
     }
 
-    public Parameter create(AnnotatedElement element,
-                            String className, List<String> genericTypes,
-                            String fieldName, String defaultHttpName) {
-        final HttpScope httpScope;
+    public ParameterMetadata create(AnnotatedElement element,
+                                    String className, List<String> genericTypes,
+                                    String fieldName, String defaultHttpName) {
+        final FxScope fxScope;
         final String httpName;
         if (element.isAnnotationPresent(FxPath.class)) {
             final FxPath path = element.getAnnotation(FxPath.class);
-            httpScope = HttpScope.PATH;
+            fxScope = FxScope.PATH;
             httpName = aliasFor(path.name(), path.value());
         } else if (element.isAnnotationPresent(FxHeader.class)) {
             final FxHeader header = element.getAnnotation(FxHeader.class);
-            httpScope = HttpScope.HEADER;
+            fxScope = FxScope.HEADER;
             httpName = aliasFor(header.name(), header.value());
-        } else if (element.isAnnotationPresent(FxRequest.class)) {
-            final FxRequest param = element.getAnnotation(FxRequest.class);
-            httpScope = HttpScope.PARAM;
+        } else if (element.isAnnotationPresent(FxForm.class)) {
+            final FxForm param = element.getAnnotation(FxForm.class);
+            fxScope = FxScope.PARAM;
             httpName = aliasFor(param.name(), param.value());
         } else if (element.isAnnotationPresent(FxAttr.class)) {
             final FxAttr attr = element.getAnnotation(FxAttr.class);
-            httpScope = HttpScope.ATTR;
+            fxScope = FxScope.ATTR;
             httpName = aliasFor(attr.name(), attr.value());
-        } else if (element.isAnnotationPresent(FxAttributes.class)) {
-            httpScope = HttpScope.ATTRIBUTES;
+        } else if (element.isAnnotationPresent(FxAttrs.class)) {
+            fxScope = FxScope.ATTRIBUTES;
             httpName = "$attrs";
         } else {
-            httpScope = HttpScope.AUTO;
+            fxScope = FxScope.FORM;
             httpName = defaultHttpName;
         }
-        return Parameter.builder()
+        return ParameterMetadata.builder()
                 .element(element)
                 .className(className)
                 .genericTypes(genericTypes)
                 .fieldName(fieldName)
                 .httpName(fixHttpName(httpName, defaultHttpName))
-                .httpScope(httpScope)
+                .httpScope(fxScope)
                 .type(ParameterType.PARAMETER)
                 .build();
     }

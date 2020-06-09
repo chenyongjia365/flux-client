@@ -3,7 +3,7 @@ package com.github.libchengo.flux.annotation;
 import java.lang.annotation.*;
 
 /**
- * 表示从Http的Query和POST表单参数中读取参数值。
+ * 表示从Http的POST表单参数中读取参数值。
  *
  * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
@@ -11,10 +11,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Inherited
-public @interface FxRequest {
+public @interface FxForm {
 
     /**
-     * @see FxRequest#name()
+     * @see FxForm#name()
      */
     String value() default "";
 

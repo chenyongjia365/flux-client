@@ -1,4 +1,4 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.extension;
 
 import java.io.Serializable;
 import java.util.HashMap;

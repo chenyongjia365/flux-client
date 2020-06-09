@@ -1,6 +1,6 @@
-package com.github.libchengo.flux.resolver;
+package com.github.libchengo.flux.impl.resolver;
 
-import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterMetadata;
 import com.github.libchengo.flux.core.ParameterResolver;
 import com.github.libchengo.flux.core.ParameterType;
 
@@ -22,14 +22,14 @@ public class ObjectParameterResolver implements ParameterResolver {
     }
 
     @Override
-    public Parameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
+    public ParameterMetadata resolve(java.lang.reflect.Parameter parameter, Type genericType) {
         final Class<?> parameterType = parameter.getType();
         if (!isPojoType(parameterType)) {
             return null;
         }
         // POJO类型：不处理泛型
         final String className = parameter.getType().getTypeName();
-        return Parameter.builder()
+        return ParameterMetadata.builder()
                 .className(className)
                 .genericTypes(Collections.emptyList())
                 .fieldName(parameter.getName())
@@ -41,12 +41,12 @@ public class ObjectParameterResolver implements ParameterResolver {
     }
 
 
-    private Parameter makeValueFieldFromPojoField(Field field) {
+    private ParameterMetadata makeValueFieldFromPojoField(Field field) {
         final Class<?> fieldType = field.getType();
         if (!endpoint.isEndpointType(fieldType)) {
             throw new IllegalArgumentException("POJO的成员属性字段，必须是有效的数值端点属性");
         }
-        final GenericHelper generic = GenericHelper.from(field);
+        final GenericTypeHelper generic = GenericTypeHelper.from(field);
         return endpoint.create(
                 field,
                 generic.className,

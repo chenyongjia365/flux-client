@@ -1,6 +1,6 @@
-package com.github.libchengo.flux.resolver;
+package com.github.libchengo.flux.impl.resolver;
 
-import com.github.libchengo.flux.core.Parameter;
+import com.github.libchengo.flux.core.ParameterMetadata;
 import com.github.libchengo.flux.core.ParameterResolver;
 
 import java.lang.reflect.Type;
@@ -17,11 +17,11 @@ public class EndpointParameterResolver implements ParameterResolver {
     }
 
     @Override
-    public Parameter resolve(java.lang.reflect.Parameter parameter, Type genericType) {
+    public ParameterMetadata resolve(java.lang.reflect.Parameter parameter, Type genericType) {
         if (!endpoint.isEndpointType(parameter.getType())) {
             return null;
         }
-        final GenericHelper generic = GenericHelper.from(parameter, genericType);
+        final GenericTypeHelper generic = GenericTypeHelper.from(parameter, genericType);
         return endpoint.create(
                 parameter,
                 generic.className,

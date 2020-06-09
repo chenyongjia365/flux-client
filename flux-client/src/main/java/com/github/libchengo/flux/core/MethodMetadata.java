@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * FxDefinition 用于包装网关Http请求与后端Dubbo/Http服务请求的传输对象。
+ * Metadata 用于包装网关Http请求与后端Dubbo/Http服务请求的传输对象。
  *
  * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class Definition implements Serializable {
+public class MethodMetadata implements Serializable {
 
     @SerializedName("ver")
     private final String ver = "v1";
@@ -22,7 +22,7 @@ public class Definition implements Serializable {
      * 映射的协议名称
      */
     @SerializedName("protocol")
-    private Protocol protocol;
+    private SupportProtocol protocol;
 
     /**
      * Dubbo.group
@@ -70,11 +70,11 @@ public class Definition implements Serializable {
      * 参数列表
      */
     @SerializedName("parameters")
-    private List<Parameter> parameters;
+    private List<ParameterMetadata> parameterMetadata;
 
-    public Definition(String application, Protocol protocol, String rpcGroup, String rpcVersion, boolean authorized,
-                      String serviceUri, String serviceMethod, String httpUri, String httpMethod,
-                      List<Parameter> parameters) {
+    public MethodMetadata(String application, SupportProtocol protocol, String rpcGroup, String rpcVersion, boolean authorized,
+                          String serviceUri, String serviceMethod, String httpUri, String httpMethod,
+                          List<ParameterMetadata> parameterMetadata) {
         this.application = application;
         this.protocol = protocol;
         this.rpcGroup = rpcGroup;
@@ -84,7 +84,7 @@ public class Definition implements Serializable {
         this.serviceMethod = serviceMethod;
         this.httpUri = httpUri;
         this.httpMethod = httpMethod;
-        this.parameters = parameters;
+        this.parameterMetadata = parameterMetadata;
     }
 
     public String getApplication() {
@@ -95,7 +95,7 @@ public class Definition implements Serializable {
         return ver;
     }
 
-    public Protocol getProtocol() {
+    public SupportProtocol getProtocol() {
         return protocol;
     }
 
@@ -127,8 +127,8 @@ public class Definition implements Serializable {
         return httpMethod;
     }
 
-    public List<Parameter> getParameters() {
-        return parameters;
+    public List<ParameterMetadata> getParameterMetadata() {
+        return parameterMetadata;
     }
 
     //
@@ -139,7 +139,7 @@ public class Definition implements Serializable {
 
     public static final class Builder {
         private String application;
-        private Protocol protocol;
+        private SupportProtocol protocol;
         private String rpcGroup;
         private String rpcVersion;
         private boolean authorized;
@@ -147,7 +147,7 @@ public class Definition implements Serializable {
         private String serviceMethod;
         private String httpUri;
         private String httpMethod;
-        private List<Parameter> parameters;
+        private List<ParameterMetadata> parameterMetadata;
 
         private Builder() {
         }
@@ -157,7 +157,7 @@ public class Definition implements Serializable {
             return this;
         }
 
-        public Builder protocol(Protocol protocol) {
+        public Builder protocol(SupportProtocol protocol) {
             this.protocol = protocol;
             return this;
         }
@@ -197,13 +197,13 @@ public class Definition implements Serializable {
             return this;
         }
 
-        public Builder parameters(List<Parameter> parameters) {
-            this.parameters = parameters;
+        public Builder parameters(List<ParameterMetadata> parameterMetadata) {
+            this.parameterMetadata = parameterMetadata;
             return this;
         }
 
-        public Definition build() {
-            return new Definition(application, protocol, rpcGroup, rpcVersion, authorized, serviceUri, serviceMethod, httpUri, httpMethod, parameters);
+        public MethodMetadata build() {
+            return new MethodMetadata(application, protocol, rpcGroup, rpcVersion, authorized, serviceUri, serviceMethod, httpUri, httpMethod, parameterMetadata);
         }
     }
 }

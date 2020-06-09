@@ -1,4 +1,4 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.impl.registry;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
  * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
 @Component
-@ConfigurationProperties(prefix = "flux.endpoint-registry")
-public class EndpointConfig {
+@ConfigurationProperties(prefix = "flux.metadata-registry")
+public class ZookeeperRegistryConfig {
 
     /**
      * 统一API前缀

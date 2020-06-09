@@ -1,4 +1,4 @@
-package com.github.libchengo.flux.resolver;
+package com.github.libchengo.flux.impl.resolver;
 
 import org.apache.dubbo.common.utils.ReflectUtils;
 
@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public class GenericHelper {
+public class GenericTypeHelper {
 
     public final String className;
     public final List<String> genericTypes;
@@ -23,7 +23,7 @@ public class GenericHelper {
     public final boolean isCollectionType;
     public final boolean isMapType;
 
-    private GenericHelper(String className, List<String> genericTypes, boolean isGenericType, boolean isCollectionType, boolean isMapType) {
+    private GenericTypeHelper(String className, List<String> genericTypes, boolean isGenericType, boolean isCollectionType, boolean isMapType) {
         this.className = className;
         this.genericTypes = genericTypes;
         this.isGenericType = isGenericType;
@@ -31,20 +31,20 @@ public class GenericHelper {
         this.isMapType = isMapType;
     }
 
-    public static GenericHelper from(Parameter parameter, Type genericType) {
+    public static GenericTypeHelper from(Parameter parameter, Type genericType) {
         return from(parameter.getType(), genericType);
     }
 
-    public static GenericHelper from(Field field) {
+    public static GenericTypeHelper from(Field field) {
         return from(field.getType(), field.getGenericType());
     }
 
-    private static GenericHelper from(Class<?> classType, Type genericType) {
+    private static GenericTypeHelper from(Class<?> classType, Type genericType) {
         boolean isCollectionType = Collection.class.isAssignableFrom(classType);
         boolean isMapType = Map.class.isAssignableFrom(classType);
         final List<String> genericTypes = new ArrayList<>(2);
         if (!isCollectionType && !isMapType) {
-            return new GenericHelper(
+            return new GenericTypeHelper(
                     classType.getCanonicalName(),
                     genericTypes,
                     false, false, false
@@ -69,7 +69,7 @@ public class GenericHelper {
             }
             genericTypes.add(secondArg.getCanonicalName());
         }
-        return new GenericHelper(
+        return new GenericTypeHelper(
                 classType.getCanonicalName(),
                 genericTypes,
                 !genericTypes.isEmpty(),

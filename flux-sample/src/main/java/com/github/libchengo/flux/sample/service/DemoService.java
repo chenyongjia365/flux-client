@@ -1,6 +1,6 @@
 package com.github.libchengo.flux.sample.service;
 
-import com.github.libchengo.flux.FxResponse;
+import com.github.libchengo.flux.extension.FxResponse;
 import com.github.libchengo.flux.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -15,18 +15,18 @@ public interface DemoService {
     @FxMapping(path = "/test/complex", method = FxMethod.GET, authorized = false)
     FxResponse hello(
             @FxAttr("fluxgo.request_id") String requestId,
-            @FxRequest(value = "group") Integer group,
+            @FxForm(value = "group") Integer group,
             List<Integer> state
     );
 
     @FxMapping(path = "/test/pojo2", method = FxMethod.GET, authorized = false)
     Object pojo(
-            @FxRequest(value = "group") Integer group,
+            @FxParam(value = "group") Integer group,
             @NotNull UserDO user
     );
 
     @FxMapping(path = "/test/{userId}", method = FxMethod.GET)
     Map<String, Object> helloDynamic(
             @FxPath(value = "userId") String userId,
-            @FxRequest String queryId);
+            @FxParam String queryId);
 }

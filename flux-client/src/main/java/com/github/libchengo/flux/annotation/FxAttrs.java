@@ -11,5 +11,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Inherited
-public @interface FxAttributes {
+public @interface FxAttrs {
 }

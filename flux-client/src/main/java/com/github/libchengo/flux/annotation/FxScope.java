@@ -1,15 +1,15 @@
-package com.github.libchengo.flux.core;
+package com.github.libchengo.flux.annotation;
 
 /**
  * HTTP数据源范围
  *
  * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public enum HttpScope {
+public enum FxScope {
     /**
-     * 自动查找数据源
+     * 从From表单参数中获取
      */
-    AUTO,
+    FORM,
 
     /**
      * 从动态Path参数中获取

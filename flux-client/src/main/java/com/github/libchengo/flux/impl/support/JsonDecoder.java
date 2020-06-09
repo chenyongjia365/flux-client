@@ -1,7 +1,8 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.impl.support;
 
+import com.github.libchengo.flux.core.MetadataDecoder;
+import com.github.libchengo.flux.core.MethodMetadata;
 import com.google.gson.*;
-import com.github.libchengo.flux.core.Definition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +12,11 @@ import java.lang.reflect.Type;
 
 /**
  * @author 陈哈哈 (chenyongjia365@outlook.com)
+ * @since 1.0.0
  */
-public class Decoder {
+public class JsonDecoder implements MetadataDecoder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Decoder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonDecoder.class);
 
     private final Gson gson = new GsonBuilder()
             .disableHtmlEscaping()
@@ -22,15 +24,11 @@ public class Decoder {
             .registerTypeAdapter(Class.class, new ClassAdapter())
             .create();
 
-    /**
-     * 序列化对象为JSON字符串
-     *
-     * @param mapper RequestMapper
-     * @return JSON 字符串
-     */
-    public String decode(Definition mapper) {
-        return gson.toJson(mapper);
+    @Override
+    public String decode(MethodMetadata metadata) {
+        return null;
     }
+
 
     ////
 

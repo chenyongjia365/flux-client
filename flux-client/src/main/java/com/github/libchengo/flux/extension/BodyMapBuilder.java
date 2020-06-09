@@ -1,4 +1,4 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.extension;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -101,7 +101,7 @@ public interface BodyMapBuilder {
         private final FxResponse response = FxResponse.simple();
         private final HashMap<String, Serializable> bodyMap = new HashMap<>(4);
 
-        SimpleBodyMapBuilder() {
+        public SimpleBodyMapBuilder() {
         }
 
         @Override

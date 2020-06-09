@@ -1,5 +1,6 @@
 package com.github.libchengo.flux.core;
 
+import com.github.libchengo.flux.annotation.FxScope;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * @author 陈哈哈 (chenyongjia365@outlook.com)
  */
-public class Parameter implements Serializable {
+public class ParameterMetadata implements Serializable {
 
     private transient AnnotatedElement element;
 
@@ -41,7 +42,7 @@ public class Parameter implements Serializable {
      * 当type类型为POJO时，fields记录所有POJO成员字段的列表及其类型
      */
     @SerializedName("fields")
-    private List<Parameter> fields;
+    private List<ParameterMetadata> fields;
 
     /**
      * 映射Http的参数名。表示值Value从网关Http请求的哪个数据字段中获取。
@@ -53,7 +54,7 @@ public class Parameter implements Serializable {
      * 指定从网关Http请求的数据源，Value值将从指定的数据源中读取。
      */
     @SerializedName("httpScope")
-    private HttpScope httpScope;
+    private FxScope fxScope;
 
     //
 
@@ -81,22 +82,22 @@ public class Parameter implements Serializable {
         return httpName;
     }
 
-    public HttpScope getHttpScope() {
-        return httpScope;
+    public FxScope getFxScope() {
+        return fxScope;
     }
 
-    public List<Parameter> getFields() {
+    public List<ParameterMetadata> getFields() {
         return fields;
     }
 
-    public Parameter(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, ParameterType parameterType, String httpName, HttpScope httpScope, List<Parameter> fields) {
+    public ParameterMetadata(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, ParameterType parameterType, String httpName, FxScope fxScope, List<ParameterMetadata> fields) {
         this.element = element;
         this.className = className;
         this.genericTypes = genericTypes;
         this.parameterName = parameterName;
         this.parameterType = parameterType;
         this.httpName = httpName;
-        this.httpScope = httpScope;
+        this.fxScope = fxScope;
         this.fields = fields;
     }
 
@@ -111,8 +112,8 @@ public class Parameter implements Serializable {
         private String fieldName;
         private ParameterType type;
         private String httpName;
-        private HttpScope httpScope;
-        private List<Parameter> fields;
+        private FxScope fxScope;
+        private List<ParameterMetadata> fields;
 
         private Builder() {
         }
@@ -147,18 +148,18 @@ public class Parameter implements Serializable {
             return this;
         }
 
-        public Builder httpScope(HttpScope httpScope) {
-            this.httpScope = httpScope;
+        public Builder httpScope(FxScope fxScope) {
+            this.fxScope = fxScope;
             return this;
         }
 
-        public Builder fields(List<Parameter> fields) {
+        public Builder fields(List<ParameterMetadata> fields) {
             this.fields = fields;
             return this;
         }
 
-        public Parameter build() {
-            return new Parameter(element, className, genericTypes, fieldName, type, httpName, httpScope, fields);
+        public ParameterMetadata build() {
+            return new ParameterMetadata(element, className, genericTypes, fieldName, type, httpName, fxScope, fields);
         }
     }
 

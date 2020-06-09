@@ -1,6 +1,6 @@
 package com.github.libchengo.flux.sample.service;
 
-import com.github.libchengo.flux.annotation.FxRequest;
+import com.github.libchengo.flux.annotation.FxForm;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 public class UserDO implements Serializable {
 
-    @FxRequest
+    @FxForm
     @NotEmpty
     private String username;
 

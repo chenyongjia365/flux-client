@@ -5,7 +5,7 @@ package com.github.libchengo.flux.core;
  *
  * @author 陈哈哈 chenyongjia365@outlook.com
  */
-public enum Protocol {
+public enum SupportProtocol {
 
     /**
      * DUBBO协议

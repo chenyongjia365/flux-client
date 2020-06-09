@@ -17,5 +17,5 @@ public interface ParameterResolver {
      * @param genericType 参数的泛型类型
      * @return ParameterField，或者为Null
      */
-    Parameter resolve(java.lang.reflect.Parameter parameter, Type genericType);
+    ParameterMetadata resolve(java.lang.reflect.Parameter parameter, Type genericType);
 }

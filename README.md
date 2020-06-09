@@ -33,7 +33,7 @@ dubbo:
 ```yaml
 # ZK 作为Flux网关Http与后端Dubbo请求映射的元数据中心
 flux:
-  metadata-registry:
+  methodMetadata-registry:
     address: zookeeper://tx.devserver.net:2181
     base-package: "com.github.libchengo.flux.sample.service"
 

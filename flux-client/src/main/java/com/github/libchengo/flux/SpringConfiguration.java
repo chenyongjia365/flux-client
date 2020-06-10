@@ -17,6 +17,11 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfiguration {
 
     @Bean
+    SpringBootstrap bootstrap() {
+        return new SpringBootstrap(fluxConfig(), registry(), resolver());
+    }
+
+    @Bean
     MetadataDecoder decoder() {
         return new JsonDecoder();
     }
@@ -36,4 +41,8 @@ public class SpringConfiguration {
         return new ZookeeperRegistryConfig();
     }
 
+    @Bean
+    FluxConfig fluxConfig() {
+        return new FluxConfig();
+    }
 }

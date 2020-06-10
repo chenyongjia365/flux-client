@@ -22,29 +22,37 @@ public class EndpointHelper {
     public ParameterMetadata create(AnnotatedElement element,
                                     String className, List<String> genericTypes,
                                     String fieldName, String defaultHttpName) {
-        final FxScope fxScope;
+        final FxScope scope;
         final String httpName;
-        if (element.isAnnotationPresent(FxPath.class)) {
-            final FxPath path = element.getAnnotation(FxPath.class);
-            fxScope = FxScope.PATH;
-            httpName = aliasFor(path.name(), path.value());
-        } else if (element.isAnnotationPresent(FxHeader.class)) {
-            final FxHeader header = element.getAnnotation(FxHeader.class);
-            fxScope = FxScope.HEADER;
-            httpName = aliasFor(header.name(), header.value());
-        } else if (element.isAnnotationPresent(FxForm.class)) {
-            final FxForm param = element.getAnnotation(FxForm.class);
-            fxScope = FxScope.PARAM;
-            httpName = aliasFor(param.name(), param.value());
-        } else if (element.isAnnotationPresent(FxAttr.class)) {
+        if (element.isAnnotationPresent(FxAttr.class)) {
             final FxAttr attr = element.getAnnotation(FxAttr.class);
-            fxScope = FxScope.ATTR;
+            scope = FxScope.ATTR;
             httpName = aliasFor(attr.name(), attr.value());
         } else if (element.isAnnotationPresent(FxAttrs.class)) {
-            fxScope = FxScope.ATTRIBUTES;
+            scope = FxScope.ATTRS;
             httpName = "$attrs";
+        } else if (element.isAnnotationPresent(FxForm.class)) {
+            final FxForm param = element.getAnnotation(FxForm.class);
+            scope = FxScope.FORM;
+            httpName = aliasFor(param.name(), param.value());
+        } else if (element.isAnnotationPresent(FxHeader.class)) {
+            final FxHeader header = element.getAnnotation(FxHeader.class);
+            scope = FxScope.HEADER;
+            httpName = aliasFor(header.name(), header.value());
+        } else if (element.isAnnotationPresent(FxParam.class)) {
+            final FxParam attr = element.getAnnotation(FxParam.class);
+            scope = FxScope.PARAM;
+            httpName = aliasFor(attr.name(), attr.value());
+        } else if (element.isAnnotationPresent(FxPath.class)) {
+            final FxPath path = element.getAnnotation(FxPath.class);
+            scope = FxScope.PATH;
+            httpName = aliasFor(path.name(), path.value());
+        } else if (element.isAnnotationPresent(FxQuery.class)) {
+            final FxQuery query = element.getAnnotation(FxQuery.class);
+            scope = FxScope.QUERY;
+            httpName = aliasFor(query.name(), query.value());
         } else {
-            fxScope = FxScope.FORM;
+            scope = FxScope.AUTO;
             httpName = defaultHttpName;
         }
         return ParameterMetadata.builder()
@@ -53,7 +61,7 @@ public class EndpointHelper {
                 .genericTypes(genericTypes)
                 .fieldName(fieldName)
                 .httpName(fixHttpName(httpName, defaultHttpName))
-                .httpScope(fxScope)
+                .httpScope(scope)
                 .type(ParameterType.PARAMETER)
                 .build();
     }
@@ -79,7 +87,7 @@ public class EndpointHelper {
             }
         }
         // 必须是JavaRuntime的基础类
-        if (!paramType.getCanonicalName().startsWith("java")) {
+        if (!paramType.getCanonicalName().startsWith("java.")) {
             return false;
         }
         // 容器类型

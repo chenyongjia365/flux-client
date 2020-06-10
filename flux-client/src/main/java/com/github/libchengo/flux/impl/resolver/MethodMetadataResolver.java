@@ -30,21 +30,23 @@ public class MethodMetadataResolver implements MetadataResolver {
 
     @Override
     public List<MethodMetadata> resolve(ServiceBeanMetadata metadata) {
-        final String prefix = metadata.getOrDefault(ServiceBeanMetadata.META_PREFIX, "");
-        final String appName = metadata.getOrDefault(ServiceBeanMetadata.META_APP_NAME, "");
-        final String group = metadata.getOrDefault(ServiceBeanMetadata.META_GROUP, "");
-        final String version = metadata.getOrDefault(ServiceBeanMetadata.META_VERSION, "");
-        final String interfaceName = metadata.get(ServiceBeanMetadata.META_IFACE_NAME);
-        final List<Method> methods = metadata.get(ServiceBeanMetadata.META_FX_METHODS);
-        LOGGER.info("Dubbo.Bean: group={}, version={}, iface={}, methods={}", group, version, interfaceName, methods.size());
-        return methods.stream()
-                .map(method -> resolve(prefix, appName,
-                        group, version, interfaceName, method.getDeclaredAnnotation(FxMapping.class), method))
+        LOGGER.info("Dubbo.Bean: group={}, version={}, iface={}, methods={}",
+                metadata.getGroup(), metadata.getVersion(), metadata.getInterfaceName(), metadata.getMethods().size());
+        return metadata.getMethods().stream()
+                .map(method -> resolveToMetadata(
+                        metadata.getPrefix(),
+                        metadata.getApplication(),
+                        metadata.getGroup(),
+                        metadata.getVersion(),
+                        metadata.getInterfaceName(),
+                        method.getDeclaredAnnotation(FxMapping.class),
+                        method))
                 .collect(Collectors.toList());
     }
 
-    public MethodMetadata resolve(String prefix, String appName,
-                                  String serviceGroup, String serviceVer, String interfaceName, FxMapping mapping, Method method) {
+    public MethodMetadata resolveToMetadata(String prefix, String appName,
+                                            String serviceGroup, String serviceVer, String interfaceName,
+                                            FxMapping mapping, Method method) {
         final MethodMetadata.Builder builder = MethodMetadata.builder()
                 .application(appName == null ? "" : appName)
                 .rpcGroup(serviceGroup == null ? "" : serviceGroup)

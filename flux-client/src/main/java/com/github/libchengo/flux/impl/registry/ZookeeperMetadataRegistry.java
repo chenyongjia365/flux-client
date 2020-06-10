@@ -24,17 +24,15 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperMetadataRegistry.class);
 
-    private final ZookeeperRegistryConfig config;
     private final MetadataDecoder decoder;
     private final CuratorFramework zkClient;
 
     public ZookeeperMetadataRegistry(ZookeeperRegistryConfig config, MetadataDecoder decoder) {
-        this.config = config;
         this.decoder = decoder;
         this.zkClient = CuratorFrameworkFactory.builder()
                 .connectString(resolveAddress(config.getAddress()))
-                .sessionTimeoutMs(5000)
-                .connectionTimeoutMs(5000)
+                .sessionTimeoutMs(config.getSessionTimeoutMs())
+                .connectionTimeoutMs(config.getConnectionTimeoutMs())
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();
     }
@@ -63,7 +61,7 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
             throw new IllegalArgumentException("Method metadata not found");
         }
         for (MethodMetadata metadata : metadataList) {
-            final String zkPath = metadata.getServiceMethod();
+            final String zkPath = METADATA_NAMESPACE + "/" + metadata.getServiceUri() + "#" + metadata.getServiceMethod();
             final byte[] data = decoder.decode(metadata).getBytes(StandardCharsets.UTF_8);
             if (zkClient.checkExists().forPath(zkPath) == null) {
                 final String res = zkClient.create().creatingParentContainersIfNeeded()

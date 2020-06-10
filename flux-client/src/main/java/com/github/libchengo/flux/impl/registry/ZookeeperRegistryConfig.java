@@ -1,5 +1,6 @@
 package com.github.libchengo.flux.impl.registry;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,35 +12,22 @@ import org.springframework.stereotype.Component;
 public class ZookeeperRegistryConfig {
 
     /**
-     * 统一API前缀
+     * Session超时：毫秒
      */
-    private String prefix;
+    @Value("${session-timeout-ms:10000}")
+    private int sessionTimeoutMs;
 
     /**
-     * 扫描目录
+     * 连接超时：毫秒
      */
-    private String basePackage;
+    @Value("${session-timeout-ms:30000}")
+    private int connectionTimeoutMs;
 
     /**
-     * 注册中心地址
+     * 注册中心地址列表
      */
+    @Value("${address:zookeeper://zookeeper:2181}")
     private String address;
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public String getBasePackage() {
-        return basePackage;
-    }
-
-    public void setBasePackage(String basePackage) {
-        this.basePackage = basePackage;
-    }
 
     public String getAddress() {
         return address;
@@ -47,5 +35,21 @@ public class ZookeeperRegistryConfig {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getSessionTimeoutMs() {
+        return sessionTimeoutMs;
+    }
+
+    public void setSessionTimeoutMs(int sessionTimeoutMs) {
+        this.sessionTimeoutMs = sessionTimeoutMs;
+    }
+
+    public int getConnectionTimeoutMs() {
+        return connectionTimeoutMs;
+    }
+
+    public void setConnectionTimeoutMs(int connectionTimeoutMs) {
+        this.connectionTimeoutMs = connectionTimeoutMs;
     }
 }

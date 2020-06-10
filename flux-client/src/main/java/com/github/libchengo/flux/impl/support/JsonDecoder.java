@@ -26,9 +26,8 @@ public class JsonDecoder implements MetadataDecoder {
 
     @Override
     public String decode(MethodMetadata metadata) {
-        return null;
+        return gson.toJson(metadata);
     }
-
 
     ////
 

@@ -18,7 +18,7 @@ public class SpringConfiguration {
 
     @Bean
     SpringBootstrap bootstrap() {
-        return new SpringBootstrap(springFluxConfig(), registry(), resolver());
+        return new SpringBootstrap(clientConfig(), registry(), resolver());
     }
 
     @Bean
@@ -38,7 +38,7 @@ public class SpringConfiguration {
 
     @Bean
     ZookeeperRegistryConfig zookeeperConfig() {
-        SpringFluxConfig c = springFluxConfig();
+        SpringRegistryConfig c = registryConfig();
         return new ZookeeperRegistryConfig(
                 c.getSessionTimeoutMs(),
                 c.getConnectionTimeoutMs(),
@@ -46,7 +46,12 @@ public class SpringConfiguration {
     }
 
     @Bean
-    SpringFluxConfig springFluxConfig() {
-        return new SpringFluxConfig();
+    SpringRegistryConfig registryConfig(){
+        return new SpringRegistryConfig();
+    }
+
+    @Bean
+    SpringClientConfig clientConfig() {
+        return new SpringClientConfig();
     }
 }

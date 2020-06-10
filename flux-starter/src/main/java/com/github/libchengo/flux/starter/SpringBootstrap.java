@@ -27,11 +27,11 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringBootstrap.class);
 
-    private final SpringFluxConfig config;
+    private final SpringClientConfig config;
     private final MetadataRegistry registry;
     private final MetadataResolver resolver;
 
-    public SpringBootstrap(SpringFluxConfig config, MetadataRegistry registry, MetadataResolver resolver) {
+    public SpringBootstrap(SpringClientConfig config, MetadataRegistry registry, MetadataResolver resolver) {
         this.config = config;
         this.registry = registry;
         this.resolver = resolver;

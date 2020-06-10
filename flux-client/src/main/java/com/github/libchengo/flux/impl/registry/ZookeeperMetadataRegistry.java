@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -61,10 +62,11 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
             throw new IllegalArgumentException("Method metadata not found");
         }
         for (MethodMetadata metadata : metadataList) {
-            final String zkPath = METADATA_NAMESPACE + "/" + metadata.getServiceUri() + "#" + metadata.getServiceMethod();
+            final String zkPath = resolveZkPath(metadata);
             final byte[] data = decoder.decode(metadata).getBytes(StandardCharsets.UTF_8);
             if (zkClient.checkExists().forPath(zkPath) == null) {
-                final String res = zkClient.create().creatingParentContainersIfNeeded()
+                final String res = zkClient.create()
+                        .creatingParentContainersIfNeeded()
                         .withMode(CreateMode.PERSISTENT)
                         .forPath(zkPath, data);
                 LOGGER.info("Metadata register as PrimaryNode[PERSISTENT], path={}, response={}", zkPath, res);
@@ -87,4 +89,17 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
                 })
                 .collect(Collectors.joining(","));
     }
+
+    private String resolveZkPath(MethodMetadata metadata) {
+        // /flux-metadata/get.sample.test.$}.profile
+        return METADATA_NAMESPACE + "/" + metadata.getHttpMethod().toLowerCase()
+                + resolveDynamic(metadata.getHttpUri().replace('/', '.'));
+    }
+
+    private final static Pattern DYNAMIC_PATH = Pattern.compile("(\\{.+\\})");
+
+    private static String resolveDynamic(String path) {
+        return DYNAMIC_PATH.matcher(path).replaceAll("\\$");
+    }
+
 }

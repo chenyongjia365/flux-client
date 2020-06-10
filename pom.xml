@@ -107,15 +107,36 @@
         </dependencies>
     </dependencyManagement>
 
+    <scm>
+        <url>https://github.com/libchengo/flux-client.git</url>
+        <connection>https://github.com/libchengo/flux-client.git</connection>
+        <developerConnection>https://github.com/libchengo</developerConnection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>YONGJIA.CHEN</name>
+            <email>chenyongjia365@outlook.com</email>
+            <url>https://github.com/libchengo</url>
+        </developer>
+    </developers>
+
     <distributionManagement>
-        <!--Should Match config: ~/.m2/settings.xml-->
         <repository>
-            <id>ali-maven-releases</id>
-            <url>${env.ALI_MAVEN_RELEASE_URL}</url>
+            <id>sonatype-release</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
-            <id>ali-maven-snapshots</id>
-            <url>${env.ALI_MAVEN_SNAPSHOT_URL}</url>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

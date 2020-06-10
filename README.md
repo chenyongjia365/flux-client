@@ -42,3 +42,7 @@ flux:
 ## 示例
 
 详细见本项目的 flux-sample 示例。
+
+## LICENSE
+
+[Apache License 2.0](LICENSE)

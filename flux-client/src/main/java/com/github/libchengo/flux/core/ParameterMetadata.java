@@ -1,7 +1,6 @@
 package com.github.libchengo.flux.core;
 
 import com.github.libchengo.flux.annotation.FxScope;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.lang.reflect.AnnotatedElement;
@@ -17,44 +16,37 @@ public class ParameterMetadata implements Serializable {
     /**
      * 字段数据类型的class名称
      */
-    @SerializedName("className")
     private String className;
 
     /**
      * 泛型类型Class名称
      */
-    @SerializedName("genericTypes")
     private List<String> genericTypes;
 
     /**
      * POJO字段名称，或者参数字段名
      */
-    @SerializedName("parameterName")
     private String parameterName;
 
     /**
      * 参数字段类型
      */
-    @SerializedName("parameterType")
     private ParameterType parameterType;
 
     /**
      * 当type类型为POJO时，fields记录所有POJO成员字段的列表及其类型
      */
-    @SerializedName("fields")
     private List<ParameterMetadata> fields;
 
     /**
      * 映射Http的参数名。表示值Value从网关Http请求的哪个数据字段中获取。
      */
-    @SerializedName("httpName")
     private String httpName;
 
     /**
      * 指定从网关Http请求的数据源，Value值将从指定的数据源中读取。
      */
-    @SerializedName("httpScope")
-    private FxScope fxScope;
+    private FxScope httpScope;
 
     //
 
@@ -82,22 +74,22 @@ public class ParameterMetadata implements Serializable {
         return httpName;
     }
 
-    public FxScope getFxScope() {
-        return fxScope;
+    public FxScope getHttpScope() {
+        return httpScope;
     }
 
     public List<ParameterMetadata> getFields() {
         return fields;
     }
 
-    public ParameterMetadata(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, ParameterType parameterType, String httpName, FxScope fxScope, List<ParameterMetadata> fields) {
+    public ParameterMetadata(AnnotatedElement element, String className, List<String> genericTypes, String parameterName, ParameterType parameterType, String httpName, FxScope httpScope, List<ParameterMetadata> fields) {
         this.element = element;
         this.className = className;
         this.genericTypes = genericTypes;
         this.parameterName = parameterName;
         this.parameterType = parameterType;
         this.httpName = httpName;
-        this.fxScope = fxScope;
+        this.httpScope = httpScope;
         this.fields = fields;
     }
 

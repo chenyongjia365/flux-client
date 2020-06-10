@@ -1,4 +1,4 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.starter;
 
 import com.github.libchengo.flux.core.MetadataDecoder;
 import com.github.libchengo.flux.core.MetadataRegistry;
@@ -18,7 +18,7 @@ public class SpringConfiguration {
 
     @Bean
     SpringBootstrap bootstrap() {
-        return new SpringBootstrap(fluxConfig(), registry(), resolver());
+        return new SpringBootstrap(springFluxConfig(), registry(), resolver());
     }
 
     @Bean
@@ -38,11 +38,15 @@ public class SpringConfiguration {
 
     @Bean
     ZookeeperRegistryConfig zookeeperConfig() {
-        return new ZookeeperRegistryConfig();
+        SpringFluxConfig c = springFluxConfig();
+        return new ZookeeperRegistryConfig(
+                c.getSessionTimeoutMs(),
+                c.getConnectionTimeoutMs(),
+                c.getAddress());
     }
 
     @Bean
-    FluxConfig fluxConfig() {
-        return new FluxConfig();
+    SpringFluxConfig springFluxConfig() {
+        return new SpringFluxConfig();
     }
 }

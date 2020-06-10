@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.nextabc</groupId>
+    <groupId>com.github.libchengo</groupId>
     <artifactId>flux-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>flux-parent</name>
@@ -27,19 +27,26 @@
     <modules>
         <module>flux-client</module>
         <module>flux-sample</module>
+        <module>flux-starter</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
 
             <dependency>
-                <groupId>org.nextabc</groupId>
+                <groupId>com.github.libchengo</groupId>
                 <artifactId>flux-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.nextabc</groupId>
+                <groupId>com.github.libchengo</groupId>
+                <artifactId>flux-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.libchengo</groupId>
                 <artifactId>flux-sample</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -1,4 +1,4 @@
-package com.github.libchengo.flux;
+package com.github.libchengo.flux.starter;
 
 import com.github.libchengo.flux.annotation.FxMapping;
 import com.github.libchengo.flux.core.MetadataRegistry;
@@ -27,11 +27,11 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringBootstrap.class);
 
-    private final FluxConfig config;
+    private final SpringFluxConfig config;
     private final MetadataRegistry registry;
     private final MetadataResolver resolver;
 
-    public SpringBootstrap(FluxConfig config, MetadataRegistry registry, MetadataResolver resolver) {
+    public SpringBootstrap(SpringFluxConfig config, MetadataRegistry registry, MetadataResolver resolver) {
         this.config = config;
         this.registry = registry;
         this.resolver = resolver;
@@ -56,15 +56,14 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
     }
 
     private List<ServiceBeanMetadata> searchMappingBeans(ApplicationContext context) {
-        if (StringUtils.isEmpty(config.getBasePackages())) {
+        final List<String> packages = scanPackages();
+        if (packages.isEmpty()) {
             return searchPackageBeans(null, context);
         } else {
-            final String[] packages = config.getBasePackages().split(",");
-            if (packages.length == 1) {
-                return searchPackageBeans(packages[0], context);
+            if (packages.size() == 1) {
+                return searchPackageBeans(packages.get(0), context);
             } else {
-                return Arrays.stream(packages)
-                        .parallel()
+                return packages.stream().parallel()
                         .flatMap(pack -> searchPackageBeans(pack, context).stream())
                         .collect(Collectors.toList());
             }
@@ -76,6 +75,7 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
         if (filterPackage) {
             LOGGER.info("Flux filter package: {}", packageName);
         }
+        final String prefix = config.getPrefix();
         final String applicationName = context.getApplicationName();
         final Collection<ServiceBean> beans = context.getBeansOfType(ServiceBean.class).values();
         LOGGER.debug("Load dubbo service beans: {}", beans.size());
@@ -90,7 +90,7 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
                 .peek(bean -> LOGGER.info("Found dubbo.bean: {}", bean))
                 .map(bean -> ServiceBeanMetadata.builder()
                         .application(applicationName)
-                        .prefix(config.getPrefix())
+                        .prefix(prefix)
                         .group(bean.getGroup())
                         .version(bean.getVersion())
                         .interfaceName(bean.getInterface())
@@ -100,5 +100,11 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
                                 .collect(Collectors.toList()))
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    private List<String> scanPackages() {
+        return Arrays.stream(config.getBasePackage().split(","))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
     }
 }

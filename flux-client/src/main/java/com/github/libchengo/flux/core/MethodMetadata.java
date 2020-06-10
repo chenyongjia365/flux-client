@@ -12,87 +12,76 @@ import java.util.List;
  */
 public class MethodMetadata implements Serializable {
 
-    @SerializedName("ver")
-    private final String ver = "v1";
+    private final String version = "v1";
 
-    @SerializedName("application")
     private String application;
 
     /**
      * 映射的协议名称
      */
-    @SerializedName("protocol")
     private SupportProtocol protocol;
 
     /**
      * Dubbo.group
      */
-    @SerializedName("rpcGroup")
     private String rpcGroup;
 
     /**
      * Dubbo.version
      */
-    @SerializedName("rpcVersion")
     private String rpcVersion;
 
     /**
      * Should authorize
      */
-    @SerializedName("authorized")
-    private boolean authorized;
+    private boolean authorize;
 
     /**
      * 网关连接目标服务路径，对应为后端Dubbo.interface或者Http地址
      */
-    @SerializedName("serviceUri")
     private String serviceUri;
 
     /**
      * 网关连接目标服务Method。对应为后端Dubbo.method或者Http.method
      */
-    @SerializedName("serviceMethod")
     private String serviceMethod;
 
     /**
      * 网关侧定义的接收Http请求路径
      */
-    @SerializedName("httpUri")
     private String httpUri;
 
     /**
      * 网关侧定义的接收Http请求Method
      */
-    @SerializedName("httpMethod")
     private String httpMethod;
 
     /**
      * 参数列表
      */
-    @SerializedName("parameters")
-    private List<ParameterMetadata> parameterMetadata;
+    private List<ParameterMetadata> parameters;
 
-    public MethodMetadata(String application, SupportProtocol protocol, String rpcGroup, String rpcVersion, boolean authorized,
+    public MethodMetadata(String application, SupportProtocol protocol, String rpcGroup, String rpcVersion, boolean authorize,
                           String serviceUri, String serviceMethod, String httpUri, String httpMethod,
-                          List<ParameterMetadata> parameterMetadata) {
+                          List<ParameterMetadata> parameters) {
         this.application = application;
         this.protocol = protocol;
         this.rpcGroup = rpcGroup;
         this.rpcVersion = rpcVersion;
-        this.authorized = authorized;
+        this.authorize = authorize;
         this.serviceUri = serviceUri;
         this.serviceMethod = serviceMethod;
         this.httpUri = httpUri;
         this.httpMethod = httpMethod;
-        this.parameterMetadata = parameterMetadata;
+        this.parameters = parameters;
     }
 
     public String getApplication() {
         return application;
     }
 
-    public String getVer() {
-        return ver;
+    public String getVersion() {
+        return version;
     }
 
     public SupportProtocol getProtocol() {
@@ -107,8 +96,8 @@ public class MethodMetadata implements Serializable {
         return rpcVersion;
     }
 
-    public boolean isAuthorized() {
-        return authorized;
+    public boolean isAuthorize() {
+        return authorize;
     }
 
     public String getServiceUri() {
@@ -127,8 +116,8 @@ public class MethodMetadata implements Serializable {
         return httpMethod;
     }
 
-    public List<ParameterMetadata> getParameterMetadata() {
-        return parameterMetadata;
+    public List<ParameterMetadata> getParameters() {
+        return parameters;
     }
 
     //

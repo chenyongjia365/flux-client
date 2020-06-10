@@ -13,17 +13,17 @@ dubbo:
 
 # ZK 作为Flux网关Http与后端Dubbo请求映射的元数据中心
 flux:
-  base-package: "com.github.libchengo.flux.sample.service"
+  base-packages: "com.github.libchengo.flux.sample.service"
   prefix: "/sample"
-#  metadata-registry:
-#    address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://tx.devserver.net:2181}
+  metadata-registry:
+    address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://tx.devserver.net:2181}
 
 
 # 日志配置
 logging:
   level:
     root: info
-    "org.nextabc.fluxway": debug
+    "com.github.libchengo.flux": debug
     "com.alibaba.nacos.config": debug
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"

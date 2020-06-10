@@ -18,7 +18,7 @@ public class FluxConfig {
     /**
      * 扫描目录，多个路径以,分隔
      */
-    private String basePackage;
+    private String basePackages;
 
     public String getPrefix() {
         return prefix;
@@ -28,12 +28,12 @@ public class FluxConfig {
         this.prefix = prefix;
     }
 
-    public String getBasePackage() {
-        return basePackage;
+    public String getBasePackages() {
+        return basePackages;
     }
 
-    public void setBasePackage(String basePackage) {
-        this.basePackage = basePackage;
+    public void setBasePackages(String basePackages) {
+        this.basePackages = basePackages;
     }
 
 }

@@ -56,10 +56,10 @@ public class SpringBootstrap implements ApplicationListener<ApplicationReadyEven
     }
 
     private List<ServiceBeanMetadata> searchMappingBeans(ApplicationContext context) {
-        if (StringUtils.isEmpty(config.getBasePackage())) {
+        if (StringUtils.isEmpty(config.getBasePackages())) {
             return searchPackageBeans(null, context);
         } else {
-            final String[] packages = config.getBasePackage().split(",");
+            final String[] packages = config.getBasePackages().split(",");
             if (packages.length == 1) {
                 return searchPackageBeans(packages[0], context);
             } else {

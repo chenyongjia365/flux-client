@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "flux.base-packages",
+      "type": "java.lang.String",
+      "description": "扫描@FxMapping生成API元数据的Service包目录路径."
+    },
+    {
+      "name": "flux.prefix",
+      "type": "java.lang.String",
+      "description": "统一应用API前缀."
+    }
+  ]
+}

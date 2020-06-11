@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -40,7 +41,7 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
 
     @Override
     public void startup() {
-        LOGGER.info("Startup... Zookeeper.namespace={}", METADATA_NAMESPACE);
+        LOGGER.info("Startup... Zookeeper.namespace={}", ROOT_NODE);
         zkClient.start();
         LOGGER.info("Startup...OK");
     }
@@ -91,14 +92,19 @@ public class ZookeeperMetadataRegistry implements MetadataRegistry {
     }
 
     private String resolveZkPath(MethodMetadata metadata) {
-        // /flux-metadata/get.sample.test.$}.profile
-        return METADATA_NAMESPACE + "/" + metadata.getHttpMethod().toLowerCase()
-                + resolveDynamic(metadata.getHttpUri().replace('/', '.'));
+        // /flux/get/sample.test.$.profile
+        final String path = resolveDynamic(metadata.getHttpUri().replace('/', '.'));
+        return Paths.get(ROOT_NODE,
+                metadata.getHttpMethod().toLowerCase(),
+                path).toString();
     }
 
     private final static Pattern DYNAMIC_PATH = Pattern.compile("(\\{.+\\})");
 
     private static String resolveDynamic(String path) {
+        if ('.' == path.charAt(0)){
+            path = path.substring(1);
+        }
         return DYNAMIC_PATH.matcher(path).replaceAll("\\$");
     }
 

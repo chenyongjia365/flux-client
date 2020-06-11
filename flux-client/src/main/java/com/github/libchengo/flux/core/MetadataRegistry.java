@@ -8,13 +8,24 @@ import java.util.List;
  */
 public interface MetadataRegistry {
 
-    String METADATA_NAMESPACE = "/flux-metadata";
+    String ROOT_NODE = "/flux";
 
-
+    /**
+     * Startup
+     */
     void startup();
 
+    /**
+     * Shutdown
+     */
     void shutdown();
 
+    /**
+     * Submit metadata
+     *
+     * @param metadataList Metadata
+     * @throws Exception Error if
+     */
     void submit(List<MethodMetadata> metadataList) throws Exception;
 
 }

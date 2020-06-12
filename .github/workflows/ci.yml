@@ -17,7 +17,7 @@ jobs:
 
       - name: Publish package to maven central
         uses: samuelmeuli/action-maven-publish@v1
-        env:
+        with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
           nexus_username: ${{ secrets.OSSRH_USERNAME }}

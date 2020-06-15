@@ -1,7 +1,5 @@
 package com.github.libchengo.flux.impl.resolver;
 
-import org.apache.dubbo.common.utils.ReflectUtils;
-
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Parameter;
@@ -79,6 +77,6 @@ public class GenericTypeHelper {
     }
 
     private static boolean isSerializableType(Class<?> clazz) {
-        return ReflectUtils.isPrimitive(clazz) || clazz.isAssignableFrom(Serializable.class);
+        return clazz.isPrimitive() || clazz.isAssignableFrom(Serializable.class);
     }
 }

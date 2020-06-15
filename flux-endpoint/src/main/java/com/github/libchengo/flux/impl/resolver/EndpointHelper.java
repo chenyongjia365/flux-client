@@ -3,7 +3,6 @@ package com.github.libchengo.flux.impl.resolver;
 import com.github.libchengo.flux.annotation.*;
 import com.github.libchengo.flux.core.ParameterMetadata;
 import com.github.libchengo.flux.core.ParameterType;
-import org.apache.dubbo.common.utils.ReflectUtils;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
@@ -79,12 +78,8 @@ public class EndpointHelper {
      */
     public boolean isEndpointType(Class<?> paramType) {
         // 1. Java原生类型数据类型
-        if (ReflectUtils.isPrimitive(paramType)) {
-            if (paramType.equals(ReflectUtils.getBoxedClass(paramType))) {
-                return true;
-            } else {
-                throw new IllegalArgumentException("必须使用基础数据类型的包装类型(BoxedType): " + paramType);
-            }
+        if (paramType.isPrimitive()) {
+            throw new IllegalArgumentException("必须使用基础数据类型的包装类型(BoxedType): " + paramType);
         }
         // 必须是JavaRuntime的基础类
         if (!paramType.getCanonicalName().startsWith("java.")) {

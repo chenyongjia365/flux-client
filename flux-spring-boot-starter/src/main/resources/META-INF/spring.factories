@@ -1,2 +1,2 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=net.bytepower.flux.starter.SpringConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=net.bytepowered.flux.starter.SpringConfiguration

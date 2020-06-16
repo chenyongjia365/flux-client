@@ -9,11 +9,11 @@ dubbo:
   registry:
     address: zookeeper://tx.devserver.net:2181
   scan:
-    base-packages: "com.github.libchengo.flux.sample.service"
+    base-packages: "net.bytepower.flux.sample.service"
 
 # ZK 作为Flux网关Http与后端Dubbo请求映射的元数据中心
 flux:
-  base-package: "com.github.libchengo.flux.sample.service"
+  base-package: "net.bytepower.flux.sample.service"
   prefix: "/sample"
   metadata-registry:
     address: ${FLUX_REGISTRY_ADDRESSS:zookeeper://tx.devserver.net:2181}
@@ -23,7 +23,7 @@ flux:
 logging:
   level:
     root: info
-    "com.github.libchengo.flux": debug
+    "net.bytepower.flux": debug
     "com.alibaba.nacos.config": debug
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"

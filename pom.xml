@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>net.bytepower</groupId>
+    <groupId>net.bytepowered</groupId>
     <artifactId>flux-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>flux-parent</name>
@@ -34,17 +34,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>net.bytepower</groupId>
+                <groupId>net.bytepowered</groupId>
                 <artifactId>flux-endpoint</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.bytepower</groupId>
+                <groupId>net.bytepowered</groupId>
                 <artifactId>flux-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.bytepower</groupId>
+                <groupId>net.bytepowered</groupId>
                 <artifactId>flux-sample</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -25,7 +25,7 @@ dubbo:
   registry:
     address: zookeeper://tx.devserver.net:2181
   scan:
-    base-packages: "net.bytepower.flux.sample.service"
+    base-packages: "net.bytepowered.flux.sample.service"
 ```
 
 ### Flux网关元数据配置
@@ -33,7 +33,7 @@ dubbo:
 ```yaml
 # ZK 作为Flux网关Http与后端Dubbo请求映射的元数据中心
 flux:
-  base-packages: "net.bytepower.flux.sample.service" 
+  base-packages: "net.bytepowered.flux.sample.service" 
   metadata-registry:
     address: zookeeper://tx.devserver.net:2181
     
